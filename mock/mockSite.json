@@ -1,0 +1,40 @@
+{
+  "documentation": [
+    {
+      "name": "Vue",
+      "url": "https://vuejs.org",
+      "tag": ["Vue"],
+      "svg": "src/assets/svg/vue.svg"
+    },
+    {
+      "name": "Pinia",
+      "url": "https://pinia.vuejs.org",
+      "tag": ["Vue","Pinia"],
+      "svg": "src/assets/svg/pinia.svg"
+    },
+    {
+      "name": "Nuxt",
+      "url": "https://nuxt.com",
+      "tag": ["Vue","Nuxt"],
+      "svg": "src/assets/svg/nuxt.svg"
+    },
+    {
+      "name": "Vite",
+      "url": "https://vitejs.dev",
+      "tag": ["Vue","Vite"],
+      "svg": "src/assets/svg/vite.svg"
+    },
+    {
+      "name": "Vitest",
+      "url": "https://vitest.dev",
+      "tag": ["Vue","Vitest"],
+      "svg": "src/assets/svg/vitest.svg"
+    },
+    {
+      "name": "Vuex",
+      "url": "https://vuex.vuejs.org",
+      "tag": ["vue","vuex"],
+      "svg": "src/assets/svg/vuex.svg"
+    }
+  ]
+}

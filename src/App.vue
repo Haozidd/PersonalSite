@@ -1,30 +1,43 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+
+  <TopBar/>
+
+<NavChunk v-for="(site,index) in siteObj"
+    :svgSrc="site.svg" :title="site.name" :href="site.url"/>
+<LoginEffect/>
+
+
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<script setup lang="ts">
+import TopBar from '@/components/TopBar/index.vue'
+import NavChunk from './components/Nav/NavChunk/index.vue'
+import {ref} from "vue";
+import mockSite from '../mock/mockSite.json'
+import LoginEffect from '@/pages/Login/LoginEffect/index.vue'
+const siteObj = mockSite.documentation
+
+console.log(siteObj)
+
+</script>
+
+
+<style lang="scss">
+body,html{
+  height: 100%;
+  width: 100%;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+body{
+  background: $themeColor;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+#app{
+  height: 100%;
+  position: relative;
+  display: flex;
+  gap: 20px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
 }
 </style>
