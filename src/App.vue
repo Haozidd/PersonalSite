@@ -1,11 +1,8 @@
 <template>
-
-  <TopBar/>
-
-<NavChunk v-for="(site,index) in siteObj"
-    :svgSrc="site.svg" :title="site.name" :href="site.url"/>
-<LoginEffect/>
-
+    <TopBar/>
+    <NavChunk v-for="(site,index) in siteObj"
+              :svgSrc="site.svg" :title="site.name" :href="site.url"></NavChunk>
+    <LoginEffect/>
 
 </template>
 
@@ -17,7 +14,6 @@ import mockSite from '../mock/mockSite.json'
 import LoginEffect from '@/pages/Login/LoginEffect/index.vue'
 const siteObj = mockSite.documentation
 
-console.log(siteObj)
 
 </script>
 

@@ -1,37 +1,281 @@
 <template>
-<div id="topBar">
-  <img src="@/assets/svg/hzdd_site.svg" alt="">
-  <h1>Hzdd</h1>
-  <Divider class="colDivider" style="height: 50%;margin-left: 20px"/>
+  <div id="topBar">
+    <div class="left">
+      <img src="@/assets/svg/hzdd_site.svg" alt="">
+      <p>
+        Hzdd
+      </p>
 
-</div>
-</template>
+      <Divider class="colDivider" style="height: 50%;margin: 26px"/>
+      <a href="https://www.bilibili.com" target="_blank">BiliBili</a>
+
+      <Divider class="colDivider" style="height: 50%;margin: 26px"/>
+
+      <a href="https://developer.mozilla.org/zh-CN/" target="_blank">MDN</a>
+
+      <Divider class="colDivider" style="height: 50%;margin: 26px"/>
+
+    </div>
+
+
+    <div class="center">
+      <div id="input-wrapper">
+        <input type="text" placeholder="Search Internet" ref="searchElement" @keypress.enter="searchRequest">
+        <div class="center-1">
+          <img src="@/assets/svg/search.svg" alt="img" @mousedown="searchRequest">
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <p>登录</p>
+      <Divider class="colDivider" style="height: 50%;"/>
+      <p>注册</p>
+    </div>
+
+
+  </div>
+</template>ƒ
 
 <script setup lang="ts">
+import {curry} from "lodash";
+import {onMounted, ref} from "vue";
+
+const searchElement = ref<HTMLInputElement>()
+
+onMounted(()=>{
+    document.onkeyup=(ev)=>{
+      if (ev.altKey){
+        getFocusByCombineKey(ev)
+      }
+    }
+
+
+})
+
+
+function searchRequest() {
+  let flag = 1; // 为0 时代表输入法正在启动, enter事件不触发
+  let searchContent = searchElement.value?.value
+  let url = `http://www.baidu.com/baidu?word=${searchContent}`
+  searchElement.value?.addEventListener('compositionstart', (ev) => {
+    flag = 0
+  })
+  searchElement.value?.addEventListener('compositionend', (ev) => {
+    flag = 1
+  })
+  if (flag === 1) {
+    window.open(url)
+    searchElement.value?.blur()
+    searchElement.value!.value = ''
+  }
+}
+
+function getFocusByCombineKey(key: KeyboardEvent) {
+  if (key.code === 'KeyF' ) {
+    searchElement.value?.focus()
+  }
+}
+
 
 </script>
 
 <style lang="scss" scoped>
-#topBar{
+#topBar {
   position: absolute;
   top: 0;
+  @include defineWidthHeight(100%, 75px);
 
-  @include defineWidthHeight(100%,7%);
+  @include flexRow();
+  justify-content: space-between;
 
-  border-bottom: .2px solid rgba(128, 128, 128, 0.47);
+  border: .2px solid rgba(128, 128, 128, 0.47);
   background: rgba(255, 255, 255, 0.5);
+}
 
+.left {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  p {
+    font-weight: bold;
+    padding-right: 20px;
+  }
+
+  a {
+    letter-spacing: 1px;
+    text-decoration: none;
+    font-size: 20px;
+    transition: .3s;
+
+    &:hover {
+      color: rgba(0, 136, 255, 0.9);
+      transform: scale(1.2);
+    }
+
+
+  }
+
+  img {
+    @include defineWidthHeight(70px, 70px);
+    cursor: pointer;
+    padding: 0 20px;
+  }
+}
+
+.center {
+  position: relative;
+  @include defineWidthHeight(30%, 100%);
+  @include flexRow();
+  align-items: center;
+
+  #input-wrapper {
+    position: relative;
+    background: red;
+    border-radius: 50%;
+    background: radial-gradient(
+            circle at 75% 30%,
+            rgb(239, 135, 182) 6%,
+            skyblue 50%,
+            plum 100%
+    );
+    box-shadow: inset 0 0 40px #fff,
+    inset 2px -5px 10px #eaf5fc;
+    animation: staticStatus 5s ease-in-out infinite;
+
+    input {
+      pointer-events: auto;
+      width: 0;
+      height: 60px;
+      outline: none;
+      cursor: text;
+      border-radius: 50%;
+      border: 1px solid rgb(229, 226, 226);
+      background: transparent;
+      padding-left: 20px;
+      padding-right: 40px;
+      font-size: 18px;
+
+      transition: .2s;
+
+      &:hover {
+        width: 300px;
+        height: 40px;
+        border-radius: 20px;
+        animation: 0;
+        background: white;
+      }
+
+      &:focus {
+        width: 300px;
+        height: 40px;
+        border-radius: 20px;
+        animation: 0;
+        background: white;
+      }
+
+      &::placeholder {
+        color: rgba(128, 128, 128, 0.55);
+      }
+
+
+    }
+
+    .center-1 {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 15%;
+      height: 100%;
+      border-radius: 20px;
+      opacity: 0;
+      @include flexRow();
+      align-items: center;
+
+      img {
+        @include defineWidthHeight(50%, 50%);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+      }
+    }
+
+    input:hover + .center-1 {
+      //pointer-events: none;
+      cursor: pointer;
+      opacity: 1;
+
+    }
+
+    input:focus + .center-1 {
+      pointer-events: auto;
+      cursor: pointer;
+      opacity: 1;
+      animation: search 4s linear infinite;
+    }
+  }
+
+  @keyframes search {
+    25% {
+      transform: translate(3px, 3px);
+    }
+    50% {
+      transform: translate(-4px, -4px);
+    }
+    75% {
+      transform: translate(4px, -4px);
+    }
+    100% {
+      transform: translate(0px, 0px);
+    }
+
+  }
+
+
+  @keyframes staticStatus {
+    50% {
+      box-shadow: inset 0 0 20px #fff,
+      inset -10px 0 10px #eaf5fc,
+      inset -40px -10px 10px #eacde6,
+      inset -0px 20px 10px #f9f6de,
+      inset 0px -20px 20px #f9f6de;
+    }
+  }
+  @keyframes hoverStatus {
+    to {
+      width: 200px;
+      height: 40px;
+      border-radius: 20px;
+    }
+  }
+  @keyframes focusStatus {
+
+  }
+
+}
+
+.right {
   display: flex;
   align-items: center;
 
+  p {
+    padding: 25px;
+    transition: .2s;
 
-
-
-  img{
-    padding: 0 20px;
-    @include defineWidthHeight(70px,70px)
+    &:hover {
+      color: rgba(215, 83, 255, .7);
+      transform: scale(1.1);
+    }
   }
+}
 
+
+p {
+  cursor: pointer;
+  font-size: 20px;
 
 }
 

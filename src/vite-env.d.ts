@@ -9,3 +9,4 @@ declare module '*.vue' {
         componentOptions
     }
 }
+declare module 'lodash/fp';

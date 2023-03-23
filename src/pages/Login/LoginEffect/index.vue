@@ -3,6 +3,7 @@
     <div class="login"></div>
     <div class="login"></div>
     <div class="login"></div>
+    <slot></slot>
   </div>
 </template>
 <script setup lang="ts">
@@ -11,7 +12,6 @@
 
 <style lang="scss" scoped>
 .login-wrapper{
-  flex-shrink: 0;
   width:100px;
   height:100px;
   position: relative;

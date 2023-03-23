@@ -9,11 +9,12 @@
   </div>
 
 
+
   <Divider class="rowDivider"/>
 
-  <class class="footer" >
+  <div class="footer" >
     <p>{{title}}</p>
-  </class>
+  </div>
 </div>
 </template>
 
