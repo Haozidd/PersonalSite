@@ -9,7 +9,6 @@
   </div>
 
 
-
   <Divider class="rowDivider"/>
 
   <div class="footer" >
@@ -36,15 +35,22 @@ function dealHref(){
 
 
 .test-wrapper{
+  box-sizing: content-box;
   position: relative;
   background: white;
   border-radius: 10%;
-  @include square();
+  width: clamp(100px,10%,250px);
   @include flexColumn();
   border: rgba(66, 64, 68,.2) 1px solid;
   cursor: pointer;
   flex-shrink: 0;
   transition: .4s;
+  &::before{
+    content: '';
+    display: block;
+    padding-top: 100%;
+
+  }
   &:hover{
     transform: translateX(-5px) translateY(-10px);
     box-shadow: 5px 5px 20px rgba(66, 64, 68,.5);
@@ -56,6 +62,7 @@ function dealHref(){
   }
   .background{
     position: absolute;
+    top: 0;
     @include defineWidthHeight();
     border-radius: 10%;
     background: radial-gradient(
@@ -77,7 +84,7 @@ function dealHref(){
   }
   .main{
     pointer-events: none;
-    position: relative;
+    position: absolute;
     @include flexColumn();
     justify-content: center;
     @include defineWidthHeight(100%,75%);
@@ -89,24 +96,23 @@ function dealHref(){
     z-index: 10;
 
   }
-  .divider{
-    pointer-events: none;
+  .rowDivider{
     position: absolute;
     bottom: 25%;
-    border-radius: 10px;
-    @include defineWidthHeight(95%,.1rem);
-    background: rgba(102, 102, 102, 0.4);
-    z-index: 10;
-  };
+  }
   .footer{
     pointer-events: none;
+    position: absolute;
+    bottom:0;
     @include defineWidthHeight(100%,25%);
     @include flexRow();
     align-items: center;
     z-index: 10;
+    overflow: hidden;
     p{
-      font-size: 2em;
-      color: gray;
+      font-size: 1.3rem;
+      color: rgba(128, 128, 128, 0.85);
+      white-space: nowrap;
     }
   }
 
