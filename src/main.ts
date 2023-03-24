@@ -8,11 +8,8 @@ if (process.env.NODE_ENV === "development") {
         adapter: "vue"
     });
 }
+
+
 const app = createApp(App)
-
 app.component('Divider',Divider)
-
-
-
-
 app.mount('#app')

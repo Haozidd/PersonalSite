@@ -5,7 +5,7 @@
 
 
   <div class="main">
-    <img :src="svgSrc" alt="Vue.svg" ref="svgSrcRef">
+    <img :src="svg" alt="Vue.svg" ref="svgSrcRef">
   </div>
 
 
@@ -13,20 +13,22 @@
   <Divider class="rowDivider"/>
 
   <div class="footer" >
-    <p>{{title}}</p>
+    <p>{{name}}</p>
   </div>
 </div>
 </template>
 
 <script setup lang="ts">
 
+import {watch} from "vue";
+
 const props= defineProps({
-  svgSrc: String,
-  title: String,
-  href:String
+  svg: String,
+  name: String,
+  url:String
 })
 function dealHref(){
-  window.open(props.href)
+  window.location.href=props.url!
 }
 </script>
 
@@ -37,25 +39,21 @@ function dealHref(){
   position: relative;
   background: white;
   border-radius: 10%;
-  @include square(200px);
+  @include square();
   @include flexColumn();
   border: rgba(66, 64, 68,.2) 1px solid;
   cursor: pointer;
   flex-shrink: 0;
-
-
   transition: .4s;
   &:hover{
     transform: translateX(-5px) translateY(-10px);
     box-shadow: 5px 5px 20px rgba(66, 64, 68,.5);
   }
-
   &:active{
     transition: .04s;
     transform: translateX(0px) translateY(0px);
     box-shadow: 0 0;
   }
-
   .background{
     position: absolute;
     @include defineWidthHeight();

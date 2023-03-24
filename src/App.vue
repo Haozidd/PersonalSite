@@ -1,39 +1,42 @@
 <template>
-    <TopBar/>
-    <NavChunk v-for="(site,index) in siteObj"
-              :svgSrc="site.svg" :title="site.name" :href="site.url"></NavChunk>
-    <LoginEffect/>
+  <TopBar/>
+  <Nav/>
+
+
+
+
+
+
 
 </template>
 
 <script setup lang="ts">
 import TopBar from '@/components/TopBar/index.vue'
-import NavChunk from './components/Nav/NavChunk/index.vue'
-import {ref} from "vue";
-import mockSite from '../mock/mockSite.json'
-import LoginEffect from '@/pages/Login/LoginEffect/index.vue'
-const siteObj = mockSite.documentation
-
+import Nav from '@/pages/Nav/index.vue'
+import NavChunk from '@/components/NavChunk/index.vue'
 
 </script>
 
 
 <style lang="scss">
 body,html{
-  height: 100%;
   width: 100%;
+  height: 100%;
 }
 body{
   background: $themeColor;
+  overflow: auto;
 }
 #app{
+  box-sizing: border-box;
+  padding-top: 75px;
   height: 100%;
   position: relative;
-  display: flex;
-  gap: 20px;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
+}
+.paddingTop{
+  top: 0;
+  width: 100%;
+  height: 75px;
+  background: transparent;
 }
 </style>

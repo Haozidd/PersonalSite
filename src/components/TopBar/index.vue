@@ -1,5 +1,5 @@
 <template>
-  <div id="topBar">
+  <div id="topBar" ref="topBar" :style="scrollDirection?'top:-75px;':'top:0px'">
     <div class="left">
       <img src="@/assets/svg/hzdd_site.svg" alt="">
       <p>
@@ -7,11 +7,11 @@
       </p>
 
       <Divider class="colDivider" style="height: 50%;margin: 26px"/>
-      <a href="https://www.bilibili.com" target="_blank">BiliBili</a>
+      <a href="https://www.bilibili.com" target="_self">BiliBili</a>
 
       <Divider class="colDivider" style="height: 50%;margin: 26px"/>
 
-      <a href="https://developer.mozilla.org/zh-CN/" target="_blank">MDN</a>
+      <a href="https://developer.mozilla.org/zh-CN/" target="_self">MDN</a>
 
       <Divider class="colDivider" style="height: 50%;margin: 26px"/>
 
@@ -20,7 +20,7 @@
 
     <div class="center">
       <div id="input-wrapper">
-        <input type="text" placeholder="Search Internet" ref="searchElement" @keypress.enter="searchRequest">
+        <input type="text" placeholder="Search Internet" ref="searchElement" @keypress.enter="searchRequest" autofocus>
         <div class="center-1">
           <img src="@/assets/svg/search.svg" alt="img" @mousedown="searchRequest">
         </div>
@@ -35,21 +35,38 @@
 
 
   </div>
-</template>ƒ
+</template>
 
 <script setup lang="ts">
-import {curry} from "lodash";
-import {onMounted, ref} from "vue";
+import {throttle} from "lodash";
+import {getCurrentInstance, onMounted, ref, watch} from "vue";
 
 const searchElement = ref<HTMLInputElement>()
+const topBar = ref<HTMLDivElement>()
 
-onMounted(()=>{
-    document.onkeyup=(ev)=>{
-      if (ev.altKey){
-        getFocusByCombineKey(ev)
-      }
+let scrollDirection = ref(0) //0: up ,1:down
+let scrollY = ref(window.scrollY)
+
+watch(scrollY, (nv, ov) => {
+  console.log(nv,ov)
+  nv >= ov ? scrollDirection.value = 1 : scrollDirection.value = 0
+})
+onMounted(() => {
+  document.onkeyup = (ev) => {
+    if (ev.altKey) {
+      getFocusByCombineKey(ev)
     }
-
+  }
+  // 解开注释,触发下拉隐藏顶栏
+  // document.onscroll = throttle((e) => {
+  //   scrollY.value = window.scrollY
+  //   if (scrollY.value <= 0) {
+  //     scrollY.value = 0
+  //   }
+  //   if (scrollY.value >= document.body.clientHeight) {
+  //     scrollY.value = document.body.clientHeight
+  //   }
+  // }, 100)
 
 })
 
@@ -65,14 +82,14 @@ function searchRequest() {
     flag = 1
   })
   if (flag === 1) {
-    window.open(url)
+    window.location.href=url
     searchElement.value?.blur()
     searchElement.value!.value = ''
   }
 }
 
 function getFocusByCombineKey(key: KeyboardEvent) {
-  if (key.code === 'KeyF' ) {
+  if (key.code === 'KeyF') {
     searchElement.value?.focus()
   }
 }
@@ -82,7 +99,7 @@ function getFocusByCombineKey(key: KeyboardEvent) {
 
 <style lang="scss" scoped>
 #topBar {
-  position: absolute;
+  position: fixed;
   top: 0;
   @include defineWidthHeight(100%, 75px);
 
@@ -91,6 +108,10 @@ function getFocusByCombineKey(key: KeyboardEvent) {
 
   border: .2px solid rgba(128, 128, 128, 0.47);
   background: rgba(255, 255, 255, 0.5);
+
+  box-shadow: inset 0 4px 10px rgba(168, 167, 167, 0.4);
+  z-index: 200;
+  transition: .2s;
 }
 
 .left {
@@ -129,6 +150,7 @@ function getFocusByCombineKey(key: KeyboardEvent) {
   @include defineWidthHeight(30%, 100%);
   @include flexRow();
   align-items: center;
+
 
   #input-wrapper {
     position: relative;
@@ -250,9 +272,6 @@ function getFocusByCombineKey(key: KeyboardEvent) {
       height: 40px;
       border-radius: 20px;
     }
-  }
-  @keyframes focusStatus {
-
   }
 
 }
