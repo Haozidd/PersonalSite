@@ -7,10 +7,10 @@ import initSites from './site.json'
 
 const oMockSiteList = mockjs.mock({
     'initSites':initSites.documentation,
-    'sites|30':[{
-        name:'@name',
-        svg:'src/assets/svg/nuxt.svg',
-        url:''
+    'sites|20':[{
+        name:'@first',
+        svg:'src/assets/svg/vite.svg',
+        url:'@url'
     }]
 })
 

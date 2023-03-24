@@ -35,6 +35,12 @@
       "url": "https://vuex.vuejs.org",
       "tag": ["vue","vuex"],
       "svg": "src/assets/svg/vuex.svg"
+    },
+    {
+      "name": "React",
+      "url": "https://react.dev",
+      "tag": ["React"],
+      "svg": "src/assets/svg/react.svg"
     }
   ]
 }

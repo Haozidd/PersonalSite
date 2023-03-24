@@ -39,12 +39,13 @@ function dealHref(){
   position: relative;
   background: white;
   border-radius: 10%;
-  width: clamp(100px,10%,250px);
+  width: clamp(150px,10%,250px);
   @include flexColumn();
   border: rgba(66, 64, 68,.2) 1px solid;
   cursor: pointer;
   flex-shrink: 0;
   transition: .4s;
+  color: rgba(128, 128, 128, 0.85);
   &::before{
     content: '';
     display: block;
@@ -53,7 +54,8 @@ function dealHref(){
   }
   &:hover{
     transform: translateX(-5px) translateY(-10px);
-    box-shadow: 5px 5px 20px rgba(66, 64, 68,.5);
+    box-shadow: 5px 5px 20px rgba(66, 64, 68,1);
+    color: rgb(69, 69, 69);
   }
   &:active{
     transition: .04s;
@@ -110,8 +112,8 @@ function dealHref(){
     z-index: 10;
     overflow: hidden;
     p{
-      font-size: 1.3rem;
-      color: rgba(128, 128, 128, 0.85);
+      font-size: 1.2rem;
+
       white-space: nowrap;
     }
   }

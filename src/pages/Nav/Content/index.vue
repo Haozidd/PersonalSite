@@ -3,7 +3,6 @@
 <NavChunk v-for="(site,index) in siteList" :key="index"
   :name="site.name" :url="site.url" :svg="site.svg"
 />
-  <NavChunk :name="testObj.name" :svg="testObj.svg" :url="testObj.url"/>
 </div>
 
 </template>
@@ -14,11 +13,6 @@ import {onBeforeMount, onMounted, reactive} from "vue";
 import {reqMockData} from "@/api";
 
 let siteList:object[]= reactive([])
-let testObj= reactive({
-  name:'hello',
-  svg:'src/assets/svg/nuxt.svg',
-  url:''
-})
 
 onBeforeMount(async ()=>{
   const apiResult = await reqMockData()

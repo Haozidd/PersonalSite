@@ -28,7 +28,9 @@ import NavBar from './NavBar/index.vue'
 
 }
 #NavBar{
-  border: 1px solid plum;
+  border: 1px solid rgba(105, 105, 114, 0.3);
+  border-radius: 10px;
+
   grid-column: 1 / 2;
   grid-row: 1 / 3;
 
@@ -36,22 +38,34 @@ import NavBar from './NavBar/index.vue'
   overflow: scroll;
 }
 #FilterBar{
-  border: 1px solid red;
+  border: 1px solid rgba(105, 105, 114, 0.3);
+  border-radius: 10px;
+
   grid-column: 2;
   grid-row: 1 / 2;
 }
 #Content{
-  border: 1px solid cornflowerblue;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(105, 105, 114, 0.3);
+  border-radius: 10px;
+
   grid-column: 2;
   grid-row: 2;
   padding: 20px;
 
   @include flexRow();
-  justify-content: space-around;
+  justify-content: start;
+  align-content: flex-start;
   flex-flow: wrap;
-  gap: 20px;
 
+
+  //display: grid;
+  //grid-template-rows: repeat(5,1fr);
+  //grid-template-columns: repeat(5,1fr);
+
+  gap: 20px;
   overflow: scroll;
+
 
 }
 

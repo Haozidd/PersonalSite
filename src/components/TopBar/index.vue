@@ -15,6 +15,8 @@
 
       <Divider class="colDivider" style="height: 50%;margin: 26px"/>
 
+      <a href="https://www.iconfont.cn" target="_self">iconFont</a>
+
     </div>
 
 
@@ -117,7 +119,6 @@ function getFocusByCombineKey(key: KeyboardEvent) {
 .left {
   display: flex;
   align-items: center;
-  overflow: hidden;
 
   p {
     font-weight: bold;
