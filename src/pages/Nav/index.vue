@@ -25,7 +25,7 @@ import NavBar from './NavBar/index.vue'
   display: grid;
   grid-template-columns:1fr 3fr;
   grid-template-rows:1fr 5fr;
-  gap: 20px;
+  gap: 20px;//1221
 
 
 }
