@@ -1,5 +1,5 @@
 <template>
-<div class="test-wrapper" @click="dealHref">
+<div class="test-wrapper" @click="dealHref" ref="navChunk">
 
   <div class="background"></div>
 
@@ -19,13 +19,20 @@
 
 <script setup lang="ts">
 
-import {watch} from "vue";
+import {getCurrentInstance, onBeforeMount, onBeforeUpdate, onMounted, onUnmounted, onUpdated, ref, watch} from "vue";
+import {reqMockData} from "@/api";
 
 const props= defineProps({
   svg: String,
   name: String,
-  url:String
+  url:String,
+  flag:Boolean
 })
+
+
+
+
+
 function dealHref(){
   window.location.href=props.url!
 }
@@ -35,26 +42,28 @@ function dealHref(){
 
 
 .test-wrapper{
-  box-sizing: content-box;
+  box-sizing: border-box;
   position: relative;
-  background: white;
+  background: rgba(255, 255, 255, 0.7);
   border-radius: 10%;
+  box-shadow: inset 2px 2px 10px rgba(237, 249, 250, 0.85),
+  inset -2px -2px 10px rgba(243, 220, 248, 0.5);
   width: clamp(150px,10%,250px);
   @include flexColumn();
   border: rgba(66, 64, 68,.2) 1px solid;
   cursor: pointer;
-  flex-shrink: 0;
-  transition: .4s;
+  transition: .3s;
   color: rgba(128, 128, 128, 0.85);
   &::before{
     content: '';
     display: block;
     padding-top: 100%;
-
   }
   &:hover{
     transform: translateX(-5px) translateY(-10px);
-    box-shadow: 5px 5px 20px rgba(66, 64, 68,1);
+    box-shadow: inset 2px 2px 5px rgb(248, 254, 255),
+    inset -2px -2px 5px rgb(248, 240, 250),
+    4px 4px 15px rgba(66, 64, 68,.5);
     color: rgb(69, 69, 69);
   }
   &:active{

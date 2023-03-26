@@ -27,3 +27,6 @@ $themeColor:linear-gradient(150deg,rgba(120, 200, 255,.2),rgba(160, 100, 200,.2)
   flex-direction: $flex-direction;
   align-items: $align-items;
 }
+@mixin testBorder(){
+  border: 1px solid gray;
+}

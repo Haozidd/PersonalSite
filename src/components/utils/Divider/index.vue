@@ -5,6 +5,10 @@
 </template>
 
 <script setup lang="ts">
+import {onBeforeMount, onMounted} from "vue";
+import {reqMockData} from "@/api";
+
+
 
 </script>
 
@@ -12,7 +16,7 @@
 .rowDivider{
   pointer-events: none;
   border-radius: 10px;
-  @include defineWidthHeight(95%,.1rem);
+  @include defineWidthHeight(90%,.1rem);
   background: rgba(102, 102, 102, 0.4);
   z-index: 10;
 }

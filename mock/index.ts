@@ -1,14 +1,20 @@
 import mockjs from 'mockjs'
 import {nanoid} from "nanoid";
-import initSites from './site.json'
+import realSites from './site.json'
+
+let initSites:object[] = []
+for (const initSitesKey in realSites) {
+    initSites=initSites.concat(realSites[initSitesKey as keyof typeof realSites])
+    console.log('@@@',realSites)
+}
 
 
 
 
 const oMockSiteList = mockjs.mock({
-    'initSites':initSites.documentation,
-    'sites|20':[{
-        name:'@first',
+    'initSites':initSites,
+    'sites|8':[{
+        title:'@first',
         svg:'src/assets/svg/vite.svg',
         url:'@url'
     }]

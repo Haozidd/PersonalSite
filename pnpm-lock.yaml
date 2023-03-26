@@ -9,6 +9,7 @@ specifiers:
   '@vitejs/plugin-vue': ^4.1.0
   axios: ^1.3.4
   lodash: ^4.17.21
+  mitt: ^3.0.0
   mockjs: ^1.1.0
   nanoid: ^4.0.1
   postcss: ^8.4.21
@@ -28,6 +29,7 @@ dependencies:
   '@types/webpack-env': 1.18.0
   axios: 1.3.4
   lodash: 4.17.21
+  mitt: 3.0.0
   mockjs: 1.1.0
   nanoid: 4.0.1
   postcss: 8.4.21
@@ -1778,6 +1780,10 @@ packages:
   /minimist/1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
     dev: true
+
+  /mitt/3.0.0:
+    resolution: {integrity: sha512-7dX2/10ITVyqh4aOSVI9gdape+t9l2/8QxHrFmUXu4EEUpdlxl6RudZUPZoc+zuY2hk1j7XxVroIVIan/pD/SQ==}
+    dev: false
 
   /mockjs/1.1.0:
     resolution: {integrity: sha512-eQsKcWzIaZzEZ07NuEyO4Nw65g0hdWAyurVol1IPl1gahRwY+svqzfgfey8U8dahLwG44d6/RwEzuK52rSa/JQ==}

@@ -1,46 +1,74 @@
 {
   "documentation": [
     {
-      "name": "Vue",
+      "title": "Vue",
       "url": "https://vuejs.org",
       "tag": ["Vue"],
       "svg": "src/assets/svg/vue.svg"
     },
     {
-      "name": "Pinia",
+      "title": "Pinia",
       "url": "https://pinia.vuejs.org",
       "tag": ["Vue","Pinia"],
       "svg": "src/assets/svg/pinia.svg"
     },
     {
-      "name": "Nuxt",
+      "title": "Nuxt",
       "url": "https://nuxt.com",
       "tag": ["Vue","Nuxt"],
       "svg": "src/assets/svg/nuxt.svg"
     },
     {
-      "name": "Vite",
+      "title": "Vite",
       "url": "https://vitejs.dev",
       "tag": ["Vue","Vite"],
       "svg": "src/assets/svg/vite.svg"
     },
     {
-      "name": "Vitest",
+      "title": "Vitest",
       "url": "https://vitest.dev",
       "tag": ["Vue","Vitest"],
       "svg": "src/assets/svg/vitest.svg"
     },
     {
-      "name": "Vuex",
+      "title": "Vuex",
       "url": "https://vuex.vuejs.org",
       "tag": ["vue","vuex"],
       "svg": "src/assets/svg/vuex.svg"
     },
     {
-      "name": "React",
+      "title": "React",
       "url": "https://react.dev",
       "tag": ["React"],
       "svg": "src/assets/svg/react.svg"
+    }
+  ],
+  "information": [
+    {
+      "title": "微博",
+      "url": "https://s.weibo.com/top/summary?cate=realtimehot",
+      "tag": ["microblog"],
+      "svg": "src/assets/svg/microblog.svg"
+    },
+    {
+      "title": "豆瓣",
+      "url": "https://www.douban.com",
+      "tag": ["douban"],
+      "svg": "src/assets/svg/douban.svg"
+    },
+    {
+      "title": "apple",
+      "url": "https://www.apple.com.cn",
+      "tag": ["apple"],
+      "svg": "src/assets/svg/apple.svg"
+    }
+  ],
+  "video": [
+    {
+      "title": "BiliBili",
+      "url": "https://www.bilibili.com",
+      "tag": ["bilibili"],
+      "svg": "src/assets/svg/bilibili.svg"
     }
   ]
 }

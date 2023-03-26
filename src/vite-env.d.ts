@@ -1,12 +1,14 @@
 /// <reference types="vite/client" />
 declare module '*.vue' {
-    import { ComponentOptions } from 'vue'
+    import { ComponentOptions,ComponentCustomProperties } from 'vue'
     import customType from './customType'
 
+const componentOptions:ComponentOptions
 
-    const componentOptions: ComponentOptions
+
     export {
-        componentOptions
+        componentOptions,
+        componentCustomProperties
     }
 }
 declare module 'lodash/fp';

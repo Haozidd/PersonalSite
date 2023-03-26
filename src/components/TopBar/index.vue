@@ -15,7 +15,7 @@
 
       <Divider class="colDivider" style="height: 50%;margin: 26px"/>
 
-      <a href="https://www.iconfont.cn" target="_self">iconFont</a>
+      <a href="https://www.iconfont.cn" target="_self">iconfont</a>
 
     </div>
 
@@ -23,7 +23,7 @@
     <div class="center">
       <div id="input-wrapper">
         <input type="text" placeholder="Search Internet" ref="searchElement" @keypress.enter="searchRequest" autofocus>
-        <div class="center-1">
+        <div class="input-button">
           <img src="@/assets/svg/search.svg" alt="img" @mousedown="searchRequest">
         </div>
       </div>
@@ -168,8 +168,9 @@ function getFocusByCombineKey(key: KeyboardEvent) {
     animation: staticStatus 5s ease-in-out infinite;
 
     input {
+      box-sizing: border-box;
       pointer-events: auto;
-      width: 0;
+      width: 60px;
       height: 60px;
       outline: none;
       cursor: text;
@@ -205,7 +206,7 @@ function getFocusByCombineKey(key: KeyboardEvent) {
 
     }
 
-    .center-1 {
+    .input-button {
       position: absolute;
       top: 0;
       right: 0;
@@ -226,14 +227,14 @@ function getFocusByCombineKey(key: KeyboardEvent) {
       }
     }
 
-    input:hover + .center-1 {
+    input:hover + .input-button {
       //pointer-events: none;
       cursor: pointer;
       opacity: 1;
 
     }
 
-    input:focus + .center-1 {
+    input:focus + .input-button {
       pointer-events: auto;
       cursor: pointer;
       opacity: 1;
@@ -256,8 +257,6 @@ function getFocusByCombineKey(key: KeyboardEvent) {
     }
 
   }
-
-
   @keyframes staticStatus {
     50% {
       box-shadow: inset 0 0 20px #fff,
@@ -293,7 +292,7 @@ function getFocusByCombineKey(key: KeyboardEvent) {
 }
 
 
-p {
+p{
   cursor: pointer;
   font-size: 20px;
 
