@@ -1,33 +1,35 @@
 import mockjs from 'mockjs'
-import {nanoid} from "nanoid";
 import realSites from './site.json'
-
-let initSites:object[] = []
+import searchEngines from './searchEngine.json'
+let initSites: object[] = []
 for (const initSitesKey in realSites) {
-    initSites=initSites.concat(realSites[initSitesKey as keyof typeof realSites])
-    console.log('@@@',realSites)
+    initSites = initSites.concat(realSites[initSitesKey as keyof typeof realSites])
 }
-
-
-
 
 const oMockSiteList = mockjs.mock({
-    'initSites':initSites,
-    'sites|8':[{
-        title:'@first',
-        svg:'src/assets/svg/vite.svg',
-        url:'@url'
+    'initSites': initSites,
+    'sites|8': [{
+        title: '@first',
+        svg: 'src/assets/svg/default.svg',
+        url: '@url'
     }]
 })
+const oSiteResponse = {
+    url: '/mock/sites',
+    response: ({body: {}}) => ({
+        code: 200,
+        msg: 'success',
+        data: oMockSiteList
+    })
+}
 
-export default {
-    method:'get',
-    url:'/mock/site',
-    response:({body:{}})=>{
-        return{
-            code:200,
-            msg:'success',
-            data:oMockSiteList
-        }
+const oMockSearchEnginList = mockjs.mock({...searchEngines})
+const oSearchEngineResponse = {
+    url: '/mock/searchEngine',
+    response:{
+        ...oMockSearchEnginList
     }
 }
+const exportArray = [oSiteResponse,oSearchEngineResponse]
+
+export default exportArray

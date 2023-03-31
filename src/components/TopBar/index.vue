@@ -1,10 +1,10 @@
 <template>
   <div id="topBar" ref="topBar" :style="scrollDirection?'top:-75px;':'top:0px'">
+
+
     <div class="left">
       <img src="@/assets/svg/hzdd_site.svg" alt="">
-      <p>
-        Hzdd
-      </p>
+      <p>Hzdd</p>
 
       <Divider class="colDivider" style="height: 50%;margin: 26px"/>
       <a href="https://www.bilibili.com" target="_self">BiliBili</a>
@@ -22,12 +22,20 @@
 
     <div class="center">
       <div id="input-wrapper">
-        <input type="text" placeholder="Search Internet" ref="searchElement" @keypress.enter="searchRequest" autofocus>
+        <input type="text" placeholder="Search" ref="searchElement" @keypress.enter="searchRequest" autofocus>
         <div class="input-button">
           <img src="@/assets/svg/search.svg" alt="img" @mousedown="searchRequest">
         </div>
+        <button class="drop-down-button" @mouseenter="hoverEnterHandle" @mouseleave="hoverLeaveHandle">{{ buttonText }}</button>
+        <div class="drop-down-frame" ref="dropDownFrame" id="dropDown"  @mouseenter="hoverEnterHandle" @mouseleave="hoverLeaveHandle">
+          <div class="drop-down-item" v-for="(engine,index) in engineList" :key="index"
+          @click="dropDownItemClickHandle($event,index)"
+
+          >{{ engine.name }}</div>
+        </div>
       </div>
     </div>
+
 
     <div class="right">
       <p>登录</p>
@@ -41,42 +49,18 @@
 
 <script setup lang="ts">
 import {throttle} from "lodash";
-import {getCurrentInstance, onMounted, ref, watch} from "vue";
+import {getCurrentInstance, onBeforeMount, onMounted, reactive, ref, watch} from "vue";
+import mock from "../../../mock";
+import {reqMockSearchEngine} from "@/api";
 
+
+//搜索框逻辑
 const searchElement = ref<HTMLInputElement>()
-const topBar = ref<HTMLDivElement>()
-
-let scrollDirection = ref(0) //0: up ,1:down
-let scrollY = ref(window.scrollY)
-
-watch(scrollY, (nv, ov) => {
-  console.log(nv,ov)
-  nv >= ov ? scrollDirection.value = 1 : scrollDirection.value = 0
-})
-onMounted(() => {
-  document.onkeyup = (ev) => {
-    if (ev.altKey) {
-      getFocusByCombineKey(ev)
-    }
-  }
-  // 解开注释,触发下拉隐藏顶栏
-  // document.onscroll = throttle((e) => {
-  //   scrollY.value = window.scrollY
-  //   if (scrollY.value <= 0) {
-  //     scrollY.value = 0
-  //   }
-  //   if (scrollY.value >= document.body.clientHeight) {
-  //     scrollY.value = document.body.clientHeight
-  //   }
-  // }, 100)
-
-})
-
-
+let url = ref('https://www.baidu.com/baidu?word=')
 function searchRequest() {
   let flag = 1; // 为0 时代表输入法正在启动, enter事件不触发
   let searchContent = searchElement.value?.value
-  let url = `http://www.baidu.com/baidu?word=${searchContent}`
+  url.value = `${url.value}${searchContent}`
   searchElement.value?.addEventListener('compositionstart', (ev) => {
     flag = 0
   })
@@ -84,12 +68,18 @@ function searchRequest() {
     flag = 1
   })
   if (flag === 1) {
-    window.location.href=url
+    window.location.href = url.value
     searchElement.value?.blur()
     searchElement.value!.value = ''
   }
 }
 
+//快捷键 option/alt+F 打开搜索框处理逻辑
+document.onkeyup = (ev) => {
+  if (ev.altKey) {
+    getFocusByCombineKey(ev)
+  }
+}
 function getFocusByCombineKey(key: KeyboardEvent) {
   if (key.code === 'KeyF') {
     searchElement.value?.focus()
@@ -97,6 +87,64 @@ function getFocusByCombineKey(key: KeyboardEvent) {
 }
 
 
+
+
+//搜索引擎下拉框处理逻辑
+const dropDownFrame = ref<HTMLDivElement>()
+let buttonText = ref('百度')
+const engineList:any[] = reactive([])
+onBeforeMount(async ()=>{
+  const reqResult = await reqMockSearchEngine()
+  for (const reqResultKey in reqResult.data) {
+    engineList.push(reqResult.data[reqResultKey])
+  }
+})
+function hoverEnterHandle(e: any) {
+  const divProxy: HTMLDivElement = dropDownFrame.value!
+  divProxy.style.paddingTop = '19px'
+  divProxy.style.height = 30*engineList.length + parseInt(divProxy.style.paddingTop)+'px'
+
+}
+function hoverLeaveHandle(e: any) {
+  const divProxy: HTMLDivElement = dropDownFrame.value!
+  divProxy.style.height = '0px'
+  divProxy.style.padding = '0px'
+  // divProxy.style.border = '0'
+}
+function dropDownItemClickHandle(e:any,index:any){
+  buttonText.value = e.target.innerText
+  url.value=engineList[index].url+engineList[index].params
+  const divProxy: HTMLDivElement = dropDownFrame.value!
+  divProxy.style.height = '0'
+  divProxy.style.padding = '0'
+  // divProxy.style.border = '0'
+}
+document.addEventListener('mousedown', function (e: MouseEvent) {
+  const eventTarget = e.target as Element
+  if (eventTarget.id === 'dropDown' || (eventTarget.parentNode as Element).id === 'dropDown') {
+    e.preventDefault()
+  }
+})
+
+
+
+
+// 下拉隐藏顶栏处理逻辑
+let scrollDirection = ref(0) //0: up ,1:down
+// let scrollY = ref(window.scrollY)
+// document.onscroll = throttle((e) => {
+//   scrollY.value = window.scrollY
+//   if (scrollY.value <= 0) {
+//     scrollY.value = 0
+//   }
+//   if (scrollY.value >= document.body.clientHeight) {
+//     scrollY.value = document.body.clientHeight
+//   }
+// }, 100)
+// watch(scrollY, (nv, ov) => {
+//   console.log(nv, ov)
+//   nv >= ov ? scrollDirection.value = 1 : scrollDirection.value = 0
+// })
 </script>
 
 <style lang="scss" scoped>
@@ -152,7 +200,6 @@ function getFocusByCombineKey(key: KeyboardEvent) {
   @include flexRow();
   align-items: center;
 
-
   #input-wrapper {
     position: relative;
     background: red;
@@ -167,7 +214,9 @@ function getFocusByCombineKey(key: KeyboardEvent) {
     inset 2px -5px 10px #eaf5fc;
     animation: staticStatus 5s ease-in-out infinite;
 
+
     input {
+      position: relative;
       box-sizing: border-box;
       pointer-events: auto;
       width: 60px;
@@ -182,6 +231,7 @@ function getFocusByCombineKey(key: KeyboardEvent) {
       font-size: 18px;
 
       transition: .2s;
+      z-index: 1;
 
       &:hover {
         width: 300px;
@@ -206,6 +256,7 @@ function getFocusByCombineKey(key: KeyboardEvent) {
 
     }
 
+
     .input-button {
       position: absolute;
       top: 0;
@@ -216,6 +267,7 @@ function getFocusByCombineKey(key: KeyboardEvent) {
       opacity: 0;
       @include flexRow();
       align-items: center;
+      z-index: 1;
 
       img {
         @include defineWidthHeight(50%, 50%);
@@ -239,6 +291,87 @@ function getFocusByCombineKey(key: KeyboardEvent) {
       cursor: pointer;
       opacity: 1;
       animation: search 4s linear infinite;
+    }
+
+    .drop-down-button {
+      position: absolute;
+      height: 60px;
+      width: 60px;
+      left: 0;
+      font-size: 16px;
+
+      opacity: 0;
+      border-radius: 50%;
+      border: 1px solid rgba(128, 128, 128, 0.18);
+      background: #e2e2fe;
+      z-index: -1;
+      transition: 0.2s;
+
+
+      &:hover {
+        background: #b5b5fd;
+      }
+
+      &:active {
+        background: #efeffe;
+      }
+    }
+
+    input:hover ~ .drop-down-button {
+      height: 40px;
+      width: 70px;
+      border-radius: 20px;
+      opacity: 0;
+    }
+
+    input:focus ~ .drop-down-button {
+      height: 40px;
+      width: 70px;
+      border-radius: 20px;
+      opacity: 1;
+      display: inline-block;
+      cursor: pointer;
+      left: -80px;
+      z-index: 1;
+    }
+
+    input:focus ~ .drop-down-frame {
+      opacity: 1;
+      left: -80px;
+    }
+    .drop-down-frame {
+      opacity: 0;
+      box-sizing: border-box;
+      text-align: center;
+      position: absolute;
+      width: 70px;
+      height: 0;
+      top: 50%;
+      left: 0;
+      border-radius: 10px;
+      border: 1px solid rgba(128, 128, 128, 0.18);
+      background: #e2e2fe;
+
+      z-index: 0;
+      transition: .2s;
+      overflow: hidden;
+
+      .drop-down-item {
+        font-size: 16px;
+        white-space: nowrap;
+        width: 100%;
+
+        box-sizing: border-box;
+        cursor: pointer;
+        line-height: 30px;
+        height: 30px;
+        border-top: 1px rgba(128, 128, 128, 0.18) solid;
+        transition: .1s;
+
+        &:hover {
+          background: #aeaeff;
+        }
+      }
     }
   }
 
@@ -292,10 +425,11 @@ function getFocusByCombineKey(key: KeyboardEvent) {
 }
 
 
-p{
+p {
   cursor: pointer;
   font-size: 20px;
 
 }
+
 
 </style>

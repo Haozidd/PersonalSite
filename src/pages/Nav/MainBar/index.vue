@@ -27,7 +27,7 @@ import {
   reactive,
   ref, watch
 } from "vue";
-import {reqMockData} from "@/api";
+import {reqMockSites} from "@/api";
 
 import Test from '@/components/utils/Test/index.vue'
 
@@ -48,7 +48,7 @@ window.onresize=()=>{
   }
 }
 onBeforeMount(async () => {
-  let apiResult = await reqMockData()
+  let apiResult = await reqMockSites()
   for (const sites in apiResult.data.data) {
     apiResult.data.data[sites].forEach((item: object) => {
       siteList.push(item)

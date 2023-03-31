@@ -53,7 +53,6 @@ import SearchBar from '@/components/SearchBar/index.vue'
   top: 50%;
 
   width: 97%;
-  box-shadow: 0 0 10px rgba(128, 128, 128, 0.5);
 
 
 
