@@ -4,8 +4,6 @@ declare module '*.vue' {
     import customType from './customType'
 
 const componentOptions:ComponentOptions
-
-
     export {
         componentOptions,
         componentCustomProperties

@@ -4,29 +4,9 @@
     "url": "https://www.baidu.com/baidu",
     "params": "?word="
   },
-  "bilibili": {
-    "name": "B站",
-    "url": "https://search.bilibili.com/all?",
-    "params": "?keyword="
-  },
-  "sina": {
-    "name": "新浪",
-    "url": "https://s.weibo.com/weibo",
+  "bing": {
+    "name": "必应",
+    "url": "https://cn.bing.com/search",
     "params": "?q="
-  },
-  "douban": {
-    "name": "豆瓣",
-    "url": "https://www.douban.com/search",
-    "params": "?q="
-  },
-  "mdn": {
-    "name": "MDN",
-    "url": "https://developer.mozilla.org/zh-CN/search",
-    "params": "?q="
-  },
-  "iconfont": {
-    "name": "图标",
-    "url": "https://www.iconfont.cn/search/index",
-    "params": "?searchType=icon&q="
   }
 }

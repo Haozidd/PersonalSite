@@ -31,8 +31,12 @@ import {reqMockSites} from "@/api";
 
 import Test from '@/components/utils/Test/index.vue'
 
-
-let siteList: object[] = reactive([])
+type siteType = {
+  title?:string,
+  url?:string,
+  svg?:string
+}
+let siteList:siteType[] = reactive([])
 
 let paddingChunkCounts = ref()
 let paddingChunkWidth = ref()

@@ -8,13 +8,17 @@
 
 
   <div class="bottomPart">
-    <SearchBar/>
+
   </div>
 </div>
 </template>
 
 <script setup lang="ts">
-import SearchBar from '@/components/SearchBar/index.vue'
+
+
+function test(e:any){
+  console.log('nihao')
+}
 
 </script>
 

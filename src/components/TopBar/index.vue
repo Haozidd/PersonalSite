@@ -4,7 +4,7 @@
 
     <div class="left">
       <img src="@/assets/svg/hzdd_site.svg" alt="">
-      <p>Hzdd</p>
+      <p @click="jumpDefault">Hzdd</p>
 
       <Divider class="colDivider" style="height: 50%;margin: 26px"/>
       <a href="https://www.bilibili.com" target="_self">BiliBili</a>
@@ -26,12 +26,20 @@
         <div class="input-button">
           <img src="@/assets/svg/search.svg" alt="img" @mousedown="searchRequest">
         </div>
-        <button class="drop-down-button" @mouseenter="hoverEnterHandle" @mouseleave="hoverLeaveHandle">{{ buttonText }}</button>
-        <div class="drop-down-frame" ref="dropDownFrame" id="dropDown"  @mouseenter="hoverEnterHandle" @mouseleave="hoverLeaveHandle">
-          <div class="drop-down-item" v-for="(engine,index) in engineList" :key="index"
-          @click="dropDownItemClickHandle($event,index)"
 
-          >{{ engine.name }}</div>
+
+        <button class="drop-down-button" @mouseenter="enterDropDownButton" @mouseleave="leaveDropDownButton">{{
+            buttonText
+          }}
+        </button>
+        <div class="drop-down-frame" ref="dropDownFrame" id="dropDown" @mouseenter="enterDropDownButton"
+             @mouseleave="leaveDropDownButton">
+
+          <div class="drop-down-item" v-for="(engine,index) in engineList" :key="index"
+               @click="clickDropDownItem($event,index)"
+          >{{ engine.name }}
+          </div>
+
         </div>
       </div>
     </div>
@@ -40,7 +48,7 @@
     <div class="right">
       <p>登录</p>
       <Divider class="colDivider" style="height: 50%;"/>
-      <p>注册</p>
+      <p @click="jumpResume">简历</p>
     </div>
 
 
@@ -52,11 +60,21 @@ import {throttle} from "lodash";
 import {getCurrentInstance, onBeforeMount, onMounted, reactive, ref, watch} from "vue";
 import mock from "../../../mock";
 import {reqMockSearchEngine} from "@/api";
+import {useRouter} from "vue-router";
+const router = useRouter()
 
+//路由跳转
+function jumpDefault() {
+  router.push('/')
+}
+function jumpResume(){
+ router.push('/resume')
+}
 
 //搜索框逻辑
 const searchElement = ref<HTMLInputElement>()
 let url = ref('https://www.baidu.com/baidu?word=')
+
 function searchRequest() {
   let flag = 1; // 为0 时代表输入法正在启动, enter事件不触发
   let searchContent = searchElement.value?.value
@@ -80,6 +98,7 @@ document.onkeyup = (ev) => {
     getFocusByCombineKey(ev)
   }
 }
+
 function getFocusByCombineKey(key: KeyboardEvent) {
   if (key.code === 'KeyF') {
     searchElement.value?.focus()
@@ -87,46 +106,47 @@ function getFocusByCombineKey(key: KeyboardEvent) {
 }
 
 
-
-
 //搜索引擎下拉框处理逻辑
 const dropDownFrame = ref<HTMLDivElement>()
 let buttonText = ref('百度')
-const engineList:any[] = reactive([])
-onBeforeMount(async ()=>{
+const engineList: any[] = reactive([])
+
+onBeforeMount(async () => {
   const reqResult = await reqMockSearchEngine()
   for (const reqResultKey in reqResult.data) {
     engineList.push(reqResult.data[reqResultKey])
   }
 })
-function hoverEnterHandle(e: any) {
-  const divProxy: HTMLDivElement = dropDownFrame.value!
-  divProxy.style.paddingTop = '19px'
-  divProxy.style.height = 30*engineList.length + parseInt(divProxy.style.paddingTop)+'px'
 
-}
-function hoverLeaveHandle(e: any) {
-  const divProxy: HTMLDivElement = dropDownFrame.value!
-  divProxy.style.height = '0px'
-  divProxy.style.padding = '0px'
-  // divProxy.style.border = '0'
-}
-function dropDownItemClickHandle(e:any,index:any){
-  buttonText.value = e.target.innerText
-  url.value=engineList[index].url+engineList[index].params
+function foldDropDownFrame() {
   const divProxy: HTMLDivElement = dropDownFrame.value!
   divProxy.style.height = '0'
   divProxy.style.padding = '0'
-  // divProxy.style.border = '0'
 }
+function unfoldDropDownFrame() {
+  const divProxy: HTMLDivElement = dropDownFrame.value!
+  divProxy.style.paddingTop = '19px'
+  divProxy.style.height = 30 * engineList.length + parseInt(divProxy.style.paddingTop) + 4 +'px'
+}
+function enterDropDownButton(e: any) {
+  unfoldDropDownFrame()
+}
+function leaveDropDownButton(e: any) {
+  foldDropDownFrame()
+}
+function clickDropDownItem(e: any, index: any) {
+  buttonText.value = e.target.innerText
+  url.value = engineList[index].url + engineList[index].params
+
+  foldDropDownFrame()
+}
+
 document.addEventListener('mousedown', function (e: MouseEvent) {
   const eventTarget = e.target as Element
-  if (eventTarget.id === 'dropDown' || (eventTarget.parentNode as Element).id === 'dropDown') {
+  if (eventTarget.className.includes('drop-down')) {
     e.preventDefault()
   }
 })
-
-
 
 
 // 下拉隐藏顶栏处理逻辑
@@ -268,7 +288,6 @@ let scrollDirection = ref(0) //0: up ,1:down
       @include flexRow();
       align-items: center;
       z-index: 1;
-
       img {
         @include defineWidthHeight(50%, 50%);
         position: absolute;
@@ -278,14 +297,11 @@ let scrollDirection = ref(0) //0: up ,1:down
 
       }
     }
-
     input:hover + .input-button {
       //pointer-events: none;
       cursor: pointer;
       opacity: 1;
-
     }
-
     input:focus + .input-button {
       pointer-events: auto;
       cursor: pointer;
@@ -316,14 +332,12 @@ let scrollDirection = ref(0) //0: up ,1:down
         background: #efeffe;
       }
     }
-
     input:hover ~ .drop-down-button {
       height: 40px;
       width: 70px;
       border-radius: 20px;
       opacity: 0;
     }
-
     input:focus ~ .drop-down-button {
       height: 40px;
       width: 70px;
@@ -334,11 +348,11 @@ let scrollDirection = ref(0) //0: up ,1:down
       left: -80px;
       z-index: 1;
     }
-
     input:focus ~ .drop-down-frame {
       opacity: 1;
       left: -80px;
     }
+
     .drop-down-frame {
       opacity: 0;
       box-sizing: border-box;

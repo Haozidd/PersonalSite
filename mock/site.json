@@ -3,31 +3,31 @@
     {
       "title": "Vue",
       "url": "https://vuejs.org",
-      "tag": ["Vue"],
+      "tag": ["vue"],
       "svg": "src/assets/svg/vue.svg"
     },
     {
       "title": "Pinia",
       "url": "https://pinia.vuejs.org",
-      "tag": ["Vue","Pinia"],
+      "tag": ["vue","pinia"],
       "svg": "src/assets/svg/pinia.svg"
     },
     {
       "title": "Nuxt",
       "url": "https://nuxt.com",
-      "tag": ["Vue","Nuxt"],
+      "tag": ["vue","nuxt"],
       "svg": "src/assets/svg/nuxt.svg"
     },
     {
       "title": "Vite",
       "url": "https://vitejs.dev",
-      "tag": ["Vue","Vite"],
+      "tag": ["vue","vite"],
       "svg": "src/assets/svg/vite.svg"
     },
     {
       "title": "Vitest",
       "url": "https://vitest.dev",
-      "tag": ["Vue","Vitest"],
+      "tag": ["vue","vitest"],
       "svg": "src/assets/svg/vitest.svg"
     },
     {
@@ -39,8 +39,32 @@
     {
       "title": "React",
       "url": "https://react.dev",
-      "tag": ["React"],
+      "tag": ["react"],
       "svg": "src/assets/svg/react.svg"
+    },
+    {
+      "title": "Element+",
+      "url": "https://element-plus.gitee.io/zh-CN/",
+      "tag": ["vue","element","ui"],
+      "svg": "src/assets/jpg/element-ui.jpg"
+    },
+    {
+      "title": "Electron",
+      "url": "https://www.electronjs.org/zh/",
+      "tag": ["electron"],
+      "svg": "src/assets/svg/electron.svg"
+    },
+    {
+      "title": "Electron-Vite",
+      "url": "https://cn-evite.netlify.app",
+      "tag": ["electron","vite"],
+      "svg": "src/assets/svg/electron-vite.svg"
+    },
+    {
+      "title": "W3School",
+      "url": "https://www.w3schools.com",
+      "tag": ["w3school"],
+      "svg": "src/assets/svg/school.svg"
     }
   ],
   "information": [
@@ -49,6 +73,12 @@
       "url": "https://s.weibo.com/top/summary?cate=realtimehot",
       "tag": ["microblog"],
       "svg": "src/assets/svg/microblog.svg"
+    },
+    {
+      "title": "Github",
+      "url": "https://github.com",
+      "tag": ["github"],
+      "svg": "src/assets/svg/github.svg"
     },
     {
       "title": "豆瓣",
@@ -61,6 +91,18 @@
       "url": "https://www.apple.com.cn",
       "tag": ["apple"],
       "svg": "src/assets/svg/apple.svg"
+    },
+    {
+      "title": "boss直聘",
+      "url": "https://www.zhipin.com/",
+      "tag": ["boss"],
+      "svg": "src/assets/png/boss.png"
+    },
+    {
+      "title": "小红书",
+      "url": "https://www.xiaohongshu.com/explore?m_source=pinpai",
+      "tag": ["xiaohongshu"],
+      "svg": "src/assets/svg/xiaohongshu.svg"
     }
   ],
   "video": [
@@ -69,6 +111,28 @@
       "url": "https://www.bilibili.com",
       "tag": ["bilibili"],
       "svg": "src/assets/svg/bilibili.svg"
+    },
+    {
+      "title": "虎牙",
+      "url": "https://www.huya.com/g/wzry",
+      "tag": ["huya"],
+      "svg": "src/assets/png/huya.png"
+    }
+  ],
+  "game": [
+    {
+      "title": "王者荣耀",
+      "url": "https://pvp.qq.com",
+      "tag": ["wangzherongyao"],
+      "svg": "src/assets/png/wangzherongyao.png"
+    }
+  ],
+  "e-commerce": [
+    {
+      "title": "淘宝",
+      "url": "https://www.taobao.com",
+      "tag": ["taobao"],
+      "svg": "src/assets/svg/taobao.svg"
     }
   ]
 }

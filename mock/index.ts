@@ -8,11 +8,11 @@ for (const initSitesKey in realSites) {
 
 const oMockSiteList = mockjs.mock({
     'initSites': initSites,
-    'sites|8': [{
-        title: '@first',
-        svg: 'src/assets/svg/default.svg',
-        url: '@url'
-    }]
+    // 'sites|8': [{
+    //     title: '@first',
+    //     svg: 'src/assets/svg/default.svg',
+    //     url: '@url'
+    // }]
 })
 const oSiteResponse = {
     url: '/mock/sites',

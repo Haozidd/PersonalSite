@@ -5,6 +5,12 @@ import checker from "vite-plugin-checker";
 import postcssPresetEnv from 'postcss-preset-env'
 import VitePluginInspector from "vite-plugin-vue-inspector";
 import {viteMockServe} from 'vite-plugin-mock'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+
+
+
 export default defineConfig({
     server:{
         port:5173,
@@ -14,7 +20,13 @@ export default defineConfig({
         vue(),
         checker({typescript:true}),
         VitePluginInspector(),
-        viteMockServe()
+        viteMockServe(),
+        Components({
+            resolvers: [ElementPlusResolver()],
+        }),
+        AutoImport({
+            resolvers: [ElementPlusResolver()],
+        }),
     ],
     resolve:{
         alias:{

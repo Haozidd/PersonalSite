@@ -1,6 +1,7 @@
 <template>
   <TopBar/>
-  <Nav/>
+<!--  <Nav/>-->
+  <router-view/>
 
 
 
@@ -27,16 +28,16 @@ body{
   background: $themeColor;
   overflow: auto;
 }
-#app{
-  box-sizing: border-box;
-  padding-top: 75px;
-  height: 100%;
-  position: relative;
-}
 .paddingTop{
   top: 0;
   width: 100%;
   height: 75px;
   background: transparent;
+}
+#app{
+  box-sizing: border-box;
+  padding-top: 75px;
+  height: 100%;
+  position: relative;
 }
 </style>

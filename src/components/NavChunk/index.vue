@@ -1,5 +1,5 @@
 <template>
-<div class="test-wrapper" @click="dealHref" ref="navChunk">
+<div class="test-wrapper" @click="dealHref" ref="navChunk" >
 
   <div class="background"></div>
 
@@ -18,9 +18,8 @@
 </template>
 
 <script setup lang="ts">
-
-import {getCurrentInstance, onBeforeMount, onBeforeUpdate, onMounted, onUnmounted, onUpdated, ref, watch} from "vue";
-import {reqMockData} from "@/api";
+import {inject} from "vue";
+import {loading} from "@/types/InjectionKey";
 
 const props= defineProps({
   svg: String,
@@ -29,11 +28,16 @@ const props= defineProps({
   flag:Boolean
 })
 
+const {isLoading}=inject(loading)!
 
 
 
 
 function dealHref(){
+
+  isLoading.value = true
+
+
   window.location.href=props.url!
 }
 </script>
