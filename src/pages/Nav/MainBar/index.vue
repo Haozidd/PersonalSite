@@ -36,7 +36,14 @@ type siteType = {
   url?:string,
   svg?:string
 }
-let siteList:siteType[] = reactive([])
+let siteList:siteType[] = reactive([
+  {
+    "title": "微博",
+    "url": "https://s.weibo.com/top/summary?cate=realtimehot",
+    "tag": ["microblog"],
+    "svg": "src/assets/svg/microblog.svg"
+  },
+])
 
 let paddingChunkCounts = ref()
 let paddingChunkWidth = ref()
